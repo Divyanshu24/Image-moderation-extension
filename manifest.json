@@ -1,0 +1,21 @@
+
+{
+  "manifest_version": 3,
+  "name": "Free Image Moderation Extension",
+  "version": "1.0",
+  "description": "Detect NSFW content and offensive text using free tools.",
+  "permissions": ["contextMenus", "scripting", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["nsfw.min.js", "tesseract.min.js", "toxicityCheck.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
