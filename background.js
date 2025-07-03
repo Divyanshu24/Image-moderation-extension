@@ -11,10 +11,10 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     target: { tabId: tab.id },
     func: (url) => { window.__ANALYZE_IMAGE_URL__ = url; },
     args: [info.srcUrl]
-  });
-
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    files: ["nsfw.min.js", "tesseract.min.js", "toxicityCheck.js", "analyzeImage.js"]
+  }).then(() => {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: ["nsfw.min.js", "tesseract.min.js", "toxicityCheck.js", "analyzeImage.js"]
+    });
   });
 });

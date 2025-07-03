@@ -7,15 +7,17 @@ document.getElementById('analyzeBtn').addEventListener('click', async () => {
   }
 
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.scripting.executeScript({
-      target: { tabId: tabs[0].id },
-      func: (url) => { window.__ANALYZE_IMAGE_URL__ = url; },
-      args: [url]
-    });
+    const tabId = tabs[0].id;
 
     chrome.scripting.executeScript({
-      target: { tabId: tabs[0].id },
-      files: ["nsfw.min.js", "tesseract.min.js", "toxicityCheck.js", "analyzeImage.js"]
+      target: { tabId },
+      func: (url) => { window.__ANALYZE_IMAGE_URL__ = url; },
+      args: [url]
+    }).then(() => {
+      chrome.scripting.executeScript({
+        target: { tabId },
+        files: ["nsfw.min.js", "tesseract.min.js", "toxicityCheck.js", "analyzeImage.js"]
+      });
     });
   });
 });
